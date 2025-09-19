@@ -1,65 +1,341 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jeremy Ward's Resume</title>
-    <link rel="stylesheet" href="styles.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Jeremy Ward — Resume</title>
+    <!-- Vanilla: system monospace only for a retro terminal feel -->
+    <style>
+      :root {
+        --bg: #0b0f0c; /* near-black */
+        --card: #0f1511; /* deep green-black */
+        --text: #b6f2c2; /* minty phosphor */
+        --muted: #83c79a; /* dimmer text */
+        --accent: #3df59b; /* bright scanline green */
+        --grid: rgba(61, 245, 155, 0.08);
+        --border: rgba(61, 245, 155, 0.25);
+        --shadow: 0 10px 40px rgba(0, 0, 0, 0.6),
+          0 0 60px rgba(61, 245, 155, 0.06) inset;
+        --radius: 20px;
+        --maxw: 900px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono",
+          "Ubuntu Mono", Consolas, "Liberation Mono", "Courier New", monospace;
+        background: radial-gradient(
+          1200px 800px at 50% 20%,
+          #0e150f 15%,
+          var(--bg) 60%
+        );
+        color: var(--text);
+        line-height: 1.55;
+        letter-spacing: 0.2px;
+        text-rendering: optimizeLegibility;
+      }
+      /* subtle CRT scanlines */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: repeating-linear-gradient(
+          to bottom,
+          rgba(61, 245, 155, 0.06),
+          rgba(61, 245, 155, 0.06) 1px,
+          transparent 1px,
+          transparent 3px
+        );
+        pointer-events: none;
+        mix-blend-mode: soft-light;
+      }
+      /* faint grid */
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: linear-gradient(
+            to right,
+            var(--grid) 1px,
+            transparent 1px
+          ),
+          linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+        background-size: 40px 40px;
+        pointer-events: none;
+      }
+      .wrap {
+        min-height: 100%;
+        display: grid;
+        place-items: center;
+        padding: 40px 16px;
+      }
+      .card {
+        width: 100%;
+        max-width: var(--maxw);
+        background: linear-gradient(
+            180deg,
+            rgba(61, 245, 155, 0.04),
+            rgba(0, 0, 0, 0)
+          ),
+          var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        overflow: clip;
+      }
+      .card-inner {
+        padding: 28px;
+        display: grid;
+        gap: 28px;
+      }
+      header {
+        text-align: center;
+        padding-bottom: 8px;
+        border-bottom: 1px dashed var(--border);
+      }
+      header h1 {
+        margin: 0 0 4px 0;
+        font-size: clamp(28px, 4.4vw, 40px);
+        letter-spacing: 0.5px;
+        text-shadow: 0 0 8px rgba(61, 245, 155, 0.25);
+      }
+      header p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .top {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: 120px 1fr;
+        align-items: center;
+      }
+      .profile-pic {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        border: 2px solid var(--accent);
+        box-shadow: 0 0 0 4px rgba(61, 245, 155, 0.08),
+          0 10px 24px rgba(0, 0, 0, 0.5);
+        object-fit: cover;
+        background: #08100a;
+      }
+      .blurb {
+        font-size: 15px;
+        color: var(--text);
+      }
+      .section h2 {
+        font-size: 16px;
+        margin: 0 0 8px 0;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .contact ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: 8px;
+      }
+      .contact a {
+        color: var(--text);
+        text-decoration: none;
+        border-bottom: 1px dotted var(--border);
+      }
+      .contact a:hover {
+        color: var(--accent);
+        border-bottom-color: var(--accent);
+      }
+      .btns {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        border-top: 1px dashed var(--border);
+        padding-top: 16px;
+      }
+      .btn {
+        display: inline-block;
+        padding: 10px 16px;
+        border: 1px solid var(--accent);
+        border-radius: 10px;
+        text-decoration: none;
+        color: var(--accent);
+        font-weight: 700;
+        font-size: 14px;
+        letter-spacing: 0.3px;
+        transition: transform 120ms ease, background 120ms ease,
+          color 120ms ease, box-shadow 120ms ease;
+        box-shadow: 0 0 0 0 rgba(61, 245, 155, 0);
+      }
+      .btn:hover {
+        background: rgba(61, 245, 155, 0.08);
+        transform: translateY(-1px);
+        box-shadow: 0 8px 20px rgba(61, 245, 155, 0.15);
+        color: var(--text);
+      }
+      .kvs {
+        display: grid;
+        gap: 6px;
+      }
+      .kvs li {
+        display: grid;
+        grid-template-columns: 140px 1fr;
+        gap: 10px;
+      }
+      .kvs strong {
+        color: var(--muted);
+        font-weight: 700;
+      }
+      /* Responsive */
+      @media (max-width: 640px) {
+        .top {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+        .profile-pic {
+          margin: 0 auto;
+        }
+        .kvs li {
+          grid-template-columns: 1fr;
+        }
+      }
+      /* Print: invert to black text on white, remove effects */
+      @media print {
+        :root {
+          --bg: #fff;
+          --card: #fff;
+          --text: #000;
+          --muted: #333;
+          --accent: #000;
+          --border: #0003;
+        }
+        body,
+        .card {
+          background: #fff !important;
+          color: #000 !important;
+        }
+        body::before,
+        body::after {
+          display: none !important;
+        }
+        .btns {
+          display: none !important;
+        }
+        a,
+        .contact a {
+          color: #000 !important;
+          border-bottom: 1px dotted #999;
+        }
+        .card {
+          border: 1px solid #ddd;
+          box-shadow: none;
+        }
+        header h1 {
+          text-shadow: none;
+        }
+      }
+    </style>
   </head>
   <body>
-    <main class="card">
-      <header>
-        <img src="profile.jpg" alt="Jeremy Ward" class="profile-pic" />
-        <h1>Jeremy Ward</h1>
-        <p class="subtitle">
-          Software Developer | Web Designer | Tech Enthusiast
-        </p>
-      </header>
-      <section class="content">
-        <p class="fluff">
-          Hello! I'm Jeremy, a passionate software developer with experience in
-          web development, mobile apps, and cloud computing. I love creating
-          efficient and user-friendly applications.
-        </p>
-        <div class="contact-info">
-          <h2>Contact Information</h2>
-          <ul>
-            <li>
-              Email:
-              <a href="mailto:jeremy.ward@aethersync.io"
-                >jeremy.ward@aethersync.io</a
+    <div class="wrap">
+      <main class="card" role="main">
+        <div class="card-inner">
+          <header>
+            <h1>Jeremy Ward</h1>
+            <p>Software Developer · Web Designer · Tech Enthusiast</p>
+          </header>
+
+          <section class="top" aria-labelledby="profile-title">
+            <img
+              src="me.png"
+              alt="Portrait of Jeremy Ward"
+              class="profile-pic"
+            />
+            <div>
+              <h2
+                id="profile-title"
+                class="visually-hidden"
+                style="position: absolute; left: -9999px"
               >
-            </li>
-            <li>Phone: (425) 260-4555</li>
-            <li>
-              LinkedIn:
-              <a
-                href="https://www.linkedin.com/in/jeremycward/"
-                target="_blank"
-                >https://www.linkedin.com/in/jeremycward/</a
-              >
-            </li>
-            <li>
-              GitHub:
-              <a href="https://github.com/Exochos" target="_blank"
-                >https://github.com/Exochos</a
-              >
-            </li>
-            <li>
-              Portfolio:
-              <a href="https://logicstream.io" target="_blank">logicstream.io</a>
-            </li>
-            <li>
-              Portfolio:
-              <a href="https://aethersync.io" target="_blank">aethersync.io</a>
-            </li>
-          </ul>
+                Profile
+              </h2>
+              <p class="blurb">
+                Hello! I'm Jeremy — I ship pragmatic, user-friendly software
+                across the web, mobile, and cloud. My happy place: Next.js +
+                Supabase/Postgres, tasteful UI, clean data pipelines, and
+                automation. I like fast pages, accessible design, and logs, lots
+                and lots of logs. Puppies are cool too.
+              </p>
+            </div>
+          </section>
+
+          <section class="section contact" aria-labelledby="contact-title">
+            <h2 id="contact-title">Contact</h2>
+            <ul class="kvs">
+              <li>
+                <strong>Email</strong>
+                <a href="mailto:jeremy.ward@aethersync.io"
+                  >jeremy.ward@aethersync.io</a
+                >
+              </li>
+              <li>
+                <strong>Phone</strong>
+                <a href="tel:+14252604555">(425) 260-4555</a>
+              </li>
+              <li>
+                <strong>LinkedIn</strong>
+                <a
+                  href="https://www.linkedin.com/in/jeremycward/"
+                  target="_blank"
+                  rel="noreferrer"
+                  >linkedin.com/in/jeremycward</a
+                >
+              </li>
+              <li>
+                <strong>GitHub</strong>
+                <a
+                  href="https://github.com/Exochos"
+                  target="_blank"
+                  rel="noreferrer"
+                  >github.com/Exochos</a
+                >
+              </li>
+              <li>
+                <strong>Portfolio</strong>
+                <a
+                  href="https://logicstream.io"
+                  target="_blank"
+                  rel="noreferrer"
+                  >logicstream.io</a
+                >
+              </li>
+              <li>
+                <strong>Portfolio</strong>
+                <a href="https://aethersync.io" target="_blank" rel="noreferrer"
+                  >aethersync.io</a
+                >
+              </li>
+            </ul>
+          </section>
+
+          <div class="btns" aria-label="Download and print options">
+            <!-- Point these to actual files you host in the same directory or your CDN -->
+            <a class="btn" href="resume.pdf" download>Download PDF</a>
+            <a class="btn" href="resume.txt" download>Download TXT</a>
+            <a class="btn" href="#" onclick="window.print();return false;"
+              >Print to PDF</a
+            >
+          </div>
         </div>
-        <div class="download-container">
-          <a href="resume.pdf" download="Jeremy_Ward_Resume.pdf" class="download-btn">Download PDF</a>
-          <a href="resume.txt" download="Jeremy_Ward_Resume.txt" class="download-btn">Download TXT</a>
-        </div>
-      </section>
-    </main>
+      </main>
+    </div>
+
+    <!-- No external JS needed -->
   </body>
 </html>
