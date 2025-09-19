@@ -5,55 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Jeremy Ward's Resume</title>
     <link rel="stylesheet" href="styles.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
   </head>
   <body>
-    <header>
-      <h1>Jeremy Ward</h1>
-      <p>Software Developer | Web Designer | Tech Enthusiast</p>
-    </header>
-    <section class="profile">
-      <img src="profile.jpg" alt="Jeremy Ward" class="profile-pic" />
-      <p>
-        Hello! I'm Jeremy, a passionate software developer with experience in
-        web development, mobile apps, and cloud computing. I love creating
-        efficient and user-friendly applications.
-      </p>
-    </section>
-    <section class="contact-info">
-      <h2>Contact Information</h2>
-      <ul>
-        <li>
-          Email:
-          <a href="mailto:jeremy.ward@aethersync.io"
-            >jeremy.ward@aethersync.io</a
-          >
-        </li>
-        <li>Phone: (425) 260-4555</li>
-        <li>
-          LinkedIn:
-          <a href="https://www.linkedin.com/in/jeremycward/" target="_blank"
-            >linkedin.com/in/jeremy-ward-123456789</a
-          >
-        </li>
-        <li>
-          GitHub:
-          <a href="https://github.com/Exochos" target="_blank"
-            >https://github.com/Exochos</a
-          >
-        </li>
-        <li>
-          Portfolio:
-          <a href="https://logicstream.io" target="_blank">logicstream.io</a>
-        </li>
-        <li>
-          Portfolio:
-          <a href="https://aethersync.io" target="_blank">aethersync.io</a>
-        </li>
-      </ul>
-    </section>
+    <main class="card">
+      <header>
+        <img src="profile.jpg" alt="Jeremy Ward" class="profile-pic" />
+        <h1>Jeremy Ward</h1>
+        <p class="subtitle">
+          Software Developer | Web Designer | Tech Enthusiast
+        </p>
+      </header>
+      <section class="content">
+        <p class="fluff">
+          Hello! I'm Jeremy, a passionate software developer with experience in
+          web development, mobile apps, and cloud computing. I love creating
+          efficient and user-friendly applications.
+        </p>
+        <div class="contact-info">
+          <h2>Contact Information</h2>
+          <ul>
+            <li>
+              Email:
+              <a href="mailto:jeremy.ward@aethersync.io"
+                >jeremy.ward@aethersync.io</a
+              >
+            </li>
+            <li>Phone: (425) 260-4555</li>
+            <li>
+              LinkedIn:
+              <a
+                href="https://www.linkedin.com/in/jeremycward/"
+                target="_blank"
+                >https://www.linkedin.com/in/jeremycward/</a
+              >
+            </li>
+            <li>
+              GitHub:
+              <a href="https://github.com/Exochos" target="_blank"
+                >https://github.com/Exochos</a
+              >
+            </li>
+            <li>
+              Portfolio:
+              <a href="https://logicstream.io" target="_blank">logicstream.io</a>
+            </li>
+            <li>
+              Portfolio:
+              <a href="https://aethersync.io" target="_blank">aethersync.io</a>
+            </li>
+          </ul>
+        </div>
+        <div class="download-container">
+          <a href="resume.pdf" download="Jeremy_Ward_Resume.pdf" class="download-btn">Download PDF</a>
+          <a href="resume.txt" download="Jeremy_Ward_Resume.txt" class="download-btn">Download TXT</a>
+        </div>
+      </section>
+    </main>
   </body>
 </html>
